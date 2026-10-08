@@ -1,0 +1,16 @@
+[Unit]
+Description=Spring Boot Application Service
+After=syslog.target network.target mysql.service
+
+[Service]
+User=spring-runner
+# Nếu cần nạp cấu hình kết nối DB vào app, có thể thêm tham số dòng lệnh hoặc biến môi trường ở đây
+ExecStart=/usr/bin/java -jar /opt/spring-app/app.jar
+SuccessExitStatus=143
+
+# Tự động khởi động lại nếu ứng dụng crash (on-failure) sau 10 giây
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
